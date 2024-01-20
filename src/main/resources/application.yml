@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+telegram:
+  bot-token: { your-bot-token }
+  chat-id: { your-chat-id }
+
+
+openai:
+  api-key: { your-api-key }
