@@ -1,7 +1,5 @@
 package com.ebcho.engdabot.service;
 
-import java.util.List;
-
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,24 +22,22 @@ public class UpdatePollingService {
 	@Async
 	public void startPolling(String botToken) {
 		int lastUpdateId = 0;
+		final int timeout = 30; // long-polling 주기
+
 		while (true) {
-			String requestUrl = TELEGRAM_API_URL + botToken + "/getUpdates?offset=" + (lastUpdateId + 1);
+			String requestUrl =
+				TELEGRAM_API_URL + botToken + "/getUpdates?offset=" + (lastUpdateId + 1) + "&timeout=" + timeout;
 
 			try {
 				TelegramResponse response = restTemplate.getForObject(requestUrl, TelegramResponse.class);
 				assert response != null;
-				List<Update> updates = response.result();
-
-				if (updates != null) {
-					for (Update update : updates) {
-						// 각 업데이트 처리
+				if (response.ok() && response.result() != null) {
+					for (Update update : response.result()) {
 						handleUpdate(update);
 
-						// 다음 폴링을 위해 lastUpdateId 업데이트
 						lastUpdateId = update.updateId();
 					}
 				}
-				Thread.sleep(1000);
 				log.info("Polling...." + lastUpdateId);
 			} catch (Exception e) {
 				log.warn("polling failed : ", e);
@@ -51,5 +47,6 @@ public class UpdatePollingService {
 
 	private void handleUpdate(Update update) {
 		log.info(update.toString());
+		// TODO : read, proofread, response, save data
 	}
 }
