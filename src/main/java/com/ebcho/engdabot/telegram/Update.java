@@ -6,4 +6,7 @@ public record Update(
 	@JsonProperty("update_id") Integer updateId,
 	@JsonProperty("message") Message message
 ) {
+	public boolean hasMessage() {
+		return message != null;
+	}
 }

@@ -9,4 +9,8 @@ public record Message(
 	@JsonProperty("date") Integer date,
 	@JsonProperty("text") String text
 ) {
+
+	public boolean hasText() {
+		return text != null;
+	}
 }
