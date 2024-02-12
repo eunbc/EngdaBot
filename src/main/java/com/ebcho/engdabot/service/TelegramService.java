@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.ebcho.engdabot.entity.Diary;
+import com.ebcho.engdabot.repository.DiaryRepository;
 import com.ebcho.engdabot.telegram.Message;
 import com.ebcho.engdabot.telegram.TelegramResponse;
 import com.ebcho.engdabot.telegram.Update;
@@ -27,6 +29,7 @@ public class TelegramService {
 	private static final String TELEGRAM_API_URL = "https://api.telegram.org/bot";
 	private final RestTemplate restTemplate;
 	private final OpenAIService openAIService;
+	private final DiaryRepository diaryRepository;
 	@Value("${telegram.bot-token}")
 	private String botToken;
 
@@ -93,6 +96,7 @@ public class TelegramService {
 				String receivedText = message.text();
 				String result = openAIService.editByOpenAI(receivedText);
 				sendResponse(message, "첨삭 결과 \n\n" + result);
+				diaryRepository.save(new Diary(receivedText, result, message.chat().id()));
 			}
 		}
 	}
