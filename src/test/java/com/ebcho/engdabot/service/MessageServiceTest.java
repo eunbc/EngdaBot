@@ -12,11 +12,13 @@ class MessageServiceTest {
 
 	static private ChatGptService chatGptService;
 	static private MessageService messageService;
+	static private TelegramService telegramService;
 
 	@BeforeAll
 	static void setUp() {
 		chatGptService = mock(ChatGptService.class);
-		messageService = new MessageService(chatGptService);
+		telegramService = mock(TelegramService.class);
+		messageService = new MessageService(chatGptService, telegramService);
 	}
 
 	@Test

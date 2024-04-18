@@ -6,7 +6,7 @@ server:
   port: 8081
 
 telegram:
-  bot-token: telegram-bot-token
+  bot-token: ${BOT_TOKEN}
 
 openai:
   api-key: ${API_KEY}

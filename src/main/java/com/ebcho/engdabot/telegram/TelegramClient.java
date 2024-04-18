@@ -1,4 +1,4 @@
-package com.ebcho.engdabot.chatgpt;
+package com.ebcho.engdabot.telegram;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -6,23 +6,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
-public class ChatGptClient {
+public class TelegramClient {
+
 	private final RestClient restClient;
 
-	public ChatGptClient(RestClient.Builder builder, @Value("${openai.api-key}") String apiKey) {
+	public TelegramClient(RestClient.Builder builder, @Value("${telegram.bot-token}") String botToken) {
 		this.restClient = builder
-			.baseUrl("https://api.openai.com")
-			.defaultHeader("Authorization", "Bearer " + apiKey)
+			.baseUrl("https://api.telegram.org/bot" + botToken)
 			.build();
 	}
 
-	public ChatCompletionResponse chatCompletions(ChatCompletionRequest request) {
+	public String sendMessage(SendMessageRequest request) {
 		return restClient.post()
-			.uri("/v1/chat/completions")
+			.uri("/sendMessage")
 			.body(request)
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.body(ChatCompletionResponse.class);
+			.body(String.class);
 	}
+
 }
