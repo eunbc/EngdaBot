@@ -18,9 +18,7 @@ public class MessageController {
 	private final MessageService messageService;
 
 	@PostMapping
-	public boolean readMessageAndCorrectText(
-		@RequestBody MessageRequest messageRequest
-	) {
+	public boolean readMessageAndCorrectText(@RequestBody MessageRequest messageRequest) {
 		return messageService.readMessageAndCorrectText(messageRequest);
 	}
 }
