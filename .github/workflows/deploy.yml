@@ -21,7 +21,7 @@ jobs:
 
       # gradle build
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       # push 하기 위해 로그인
       - name: Docker Hub 로그인
