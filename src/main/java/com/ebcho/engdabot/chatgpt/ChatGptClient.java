@@ -10,6 +10,7 @@ public class ChatGptClient {
 	private final RestClient restClient;
 
 	public ChatGptClient(RestClient.Builder builder, @Value("${openai.api-key}") String apiKey) {
+		System.out.println("[apiKey] : " + apiKey);
 		this.restClient = builder
 			.baseUrl("https://api.openai.com")
 			.defaultHeader("Authorization", "Bearer " + apiKey)
