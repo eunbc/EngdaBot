@@ -8,4 +8,4 @@ WORKDIR /app
 COPY build/libs/engdabot-0.0.1-SNAPSHOT.jar engdabot.jar
 
 # 컨테이너가 시작될 때 애플리케이션 실행
-ENTRYPOINT ["java","-Duser.timezone=Asia/Seoul","-jar","engdabot.jar"]
+ENTRYPOINT ["sh", "-c", "java -Duser.timezone=Asia/Seoul -DbotToken=${BOT_TOKEN} -DapiKey=${API_KEY} -jar engdabot.jar"]
