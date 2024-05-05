@@ -5,7 +5,7 @@ import com.ebcho.engdabot.telegram.ChatMember;
 import com.ebcho.engdabot.telegram.Update;
 
 public record RegisterUserRequest(
-	Integer id,
+	Long id,
 	String firstName,
 	ChatMember.Status status
 ) {
