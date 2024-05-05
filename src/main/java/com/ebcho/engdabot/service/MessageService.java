@@ -14,6 +14,10 @@ public class MessageService {
 	private final TelegramService telegramService;
 
 	public Boolean readMessageAndCorrectText(MessageRequest messageRequest) {
+		if (messageRequest.message().equals("/start")) {
+			telegramService.sendStartMessage(messageRequest.chatId());
+		}
+
 		// chat gpt로 첨삭
 		String correctedMessage = chatGptService.correctEnglishText(messageRequest.message());
 
