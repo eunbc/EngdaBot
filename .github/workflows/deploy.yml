@@ -60,10 +60,10 @@ jobs:
             -p 8081:8081 \
             -e BOT_TOKEN=${{ secrets.BOT_TOKEN }} \
             -e API_KEY=${{ secrets.API_KEY }} \
-            -e TZ=Asia/Seoul \
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
             -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \          
+            -e TZ=Asia/Seoul \
             ${{ secrets.DOCKER_ID }}/engdabot
 
           docker system prune -f
