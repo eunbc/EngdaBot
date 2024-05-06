@@ -56,7 +56,7 @@ jobs:
           docker pull ${{ secrets.DOCKER_ID }}/engdabot
           
           # Docker 컨테이너 실행
-          docker run -d --name engdabot -p 8081:8081 -e BOT_TOKEN=${{ secrets.BOT_TOKEN }} -e API_KEY=${{ secrets.API_KEY }} -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e TZ=Asia/Seoul ${{ secrets.DOCKER_ID }}/engdabot
+          docker run -d --name engdabot -p 8081:8081 -e BOT_TOKEN=${{ secrets.BOT_TOKEN }} -e API_KEY=${{ secrets.API_KEY }} -e DATABASE_URL=test -e TZ=Asia/Seoul ${{ secrets.DOCKER_ID }}/engdabot
 
           docker system prune -f
           "
