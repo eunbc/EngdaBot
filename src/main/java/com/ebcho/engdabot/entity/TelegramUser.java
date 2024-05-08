@@ -9,12 +9,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "telegram_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TelegramUser {
 
@@ -24,13 +26,13 @@ public class TelegramUser {
 
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
-
-	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
-
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "alarm_type", nullable = false)
 	private AlarmType alarmType = AlarmType.ON;
+
+	@Column(name = "created_at", nullable = false)
+	private LocalDateTime createdAt;
 
 	public TelegramUser(Long id, String firstName) {
 		this.id = id;

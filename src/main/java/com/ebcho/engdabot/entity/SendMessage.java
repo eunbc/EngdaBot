@@ -17,12 +17,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "send_message")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SendMessage {
 
@@ -33,9 +35,6 @@ public class SendMessage {
 
 	@Column(name = "content", nullable = false, columnDefinition = "TEXT")
 	private String content;
-
-	@Column(name = "sent_at", nullable = false)
-	private LocalDateTime sentAt;
 
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -48,4 +47,7 @@ public class SendMessage {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "receiver_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private TelegramUser receiver;
+
+	@Column(name = "sent_at", nullable = false)
+	private LocalDateTime sentAt;
 }

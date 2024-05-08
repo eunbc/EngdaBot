@@ -12,12 +12,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "receive_message")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReceiveMessage {
 
@@ -29,10 +31,10 @@ public class ReceiveMessage {
 	@Column(name = "content", nullable = false, columnDefinition = "TEXT")
 	private String content;
 
-	@Column(name = "received_at", nullable = false)
-	private LocalDateTime receivedAt;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sender_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private TelegramUser sender;
+
+	@Column(name = "received_at", nullable = false)
+	private LocalDateTime receivedAt;
 }
