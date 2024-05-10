@@ -50,4 +50,12 @@ public class SendMessage {
 
 	@Column(name = "sent_at", nullable = false)
 	private LocalDateTime sentAt;
+
+	public SendMessage(String content, TelegramUser receiver, @Nullable String failMessage) {
+		this.content = content;
+		this.receiver = receiver;
+		this.failMessage = failMessage;
+		this.status = failMessage == null ? SendMessageStatus.DONE : SendMessageStatus.FAIL;
+		this.sentAt = LocalDateTime.now();
+	}
 }
