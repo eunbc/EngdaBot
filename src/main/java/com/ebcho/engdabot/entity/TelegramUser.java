@@ -26,7 +26,7 @@ public class TelegramUser {
 
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "alarm_type", nullable = false)
 	private AlarmType alarmType = AlarmType.ON;

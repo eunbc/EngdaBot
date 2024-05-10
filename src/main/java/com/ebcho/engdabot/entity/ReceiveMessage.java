@@ -37,4 +37,10 @@ public class ReceiveMessage {
 
 	@Column(name = "received_at", nullable = false)
 	private LocalDateTime receivedAt;
+
+	public ReceiveMessage(String content, TelegramUser sender) {
+		this.content = content;
+		this.sender = sender;
+		this.receivedAt = LocalDateTime.now();
+	}
 }
