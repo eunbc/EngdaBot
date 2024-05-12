@@ -42,6 +42,11 @@ public class TelegramService {
 		sendMessage(user, startMessage);
 	}
 
+	public void sendDailyNotification(TelegramUser user) {
+		String dailyNotification = "How was your day? Write it in your English diary.";
+		sendMessage(user, dailyNotification);
+	}
+
 	public void saveReceiveMessage(TelegramUser user, String message) {
 		receiveMessageRepository.save(new ReceiveMessage(message, user));
 	}
@@ -56,4 +61,5 @@ public class TelegramService {
 		}
 		sendMessageRepository.save(new SendMessage(startMessage, user, null));
 	}
+
 }
