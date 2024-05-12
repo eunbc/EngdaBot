@@ -8,7 +8,7 @@ public record Update(
 	@JsonProperty("my_chat_member") ChatMemberUpdated myChatMember
 ) {
 	public boolean hasMessage() {
-		return message != null;
+		return message != null && message.hasText();
 	}
 
 	public boolean hasMyChatMember() {
