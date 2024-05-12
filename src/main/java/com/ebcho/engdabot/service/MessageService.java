@@ -1,12 +1,15 @@
 package com.ebcho.engdabot.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ebcho.engdabot.dto.MessageRequest;
 import com.ebcho.engdabot.entity.TelegramUser;
+import com.ebcho.engdabot.enums.AlarmType;
 import com.ebcho.engdabot.repository.TelegramUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +38,14 @@ public class MessageService {
 		// 첨삭 내용을 텔레그램 메시지로 답장
 		telegramService.sendResponse(user, correctedMessage);
 		return true;
+	}
+
+	@Scheduled(cron = "0 0 23 * * *")
+	public void sendDailyNotification() {
+		List<TelegramUser> users = telegramUserRepository.findByAlarmType(AlarmType.ON);
+		for (TelegramUser user : users) {
+			telegramService.sendDailyNotification(user);
+		}
 	}
 
 	private TelegramUser getTelegramUser(MessageRequest messageRequest) {
