@@ -4,39 +4,26 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.ToString;
-
-@Getter
-@ToString
-public class ChatCompletionResponse {
+public record ChatCompletionResponse(
 	@JsonProperty("id")
-	private String id;
+	String id,
 	@JsonProperty("object")
-	private String object;
+	String object,
 	@JsonProperty("created")
-	private long created;
+	long created,
 	@JsonProperty("model")
-	private String model;
+	String model,
 	@JsonProperty("system_fingerprint")
-	private String systemFingerprint;
+	String systemFingerprint,
 	@JsonProperty("choices")
-	private List<Choice> choices;
+	List<Choice> choices,
 	@JsonProperty("usage")
-	private Usage usage;
+	Usage usage) {
 
-	public record Choice(@JsonProperty("index") int index,
-						 @JsonProperty("message") Message message,
-						 @JsonProperty("logprobs") Object logprobs,
-						 @JsonProperty("finish_reason") String finishReason) {
+	public String getResponse() {
+		return this.choices().get(0).message().content();
 	}
 
-	public record Message(@JsonProperty("role") String role,
-						  @JsonProperty("content") String content) {
-	}
-
-	public record Usage(@JsonProperty("prompt_tokens") int promptTokens,
-						@JsonProperty("completion_tokens") int completionTokens,
-						@JsonProperty("total_tokens") int totalTokens) {
-	}
 }
+
+

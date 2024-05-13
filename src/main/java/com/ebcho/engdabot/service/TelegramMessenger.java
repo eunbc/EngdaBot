@@ -18,17 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class TelegramService {
+public class TelegramMessenger {
 
 	private final TelegramClient telegramClient;
 	private final SendMessageRepository sendMessageRepository;
 	private final ReceiveMessageRepository receiveMessageRepository;
 
-	public void sendResponse(TelegramUser user, String responseText) {
+	public void send(TelegramUser user, String responseText) {
 		sendMessage(user, responseText);
 	}
 
-	public void saveReceiveMessage(TelegramUser user, String message) {
+	public void receive(TelegramUser user, String message) {
 		receiveMessageRepository.save(new ReceiveMessage(message, user));
 	}
 

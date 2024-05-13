@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ChatGptService {
+public class ChatGptExecutor {
 
 	private final ChatGptClient chatGptClient;
 
-	public String correctEnglishText(String message) {
+	public String correct(String message) {
 		String prompt = "Please proofread and correct the English text: " + message;
 		ChatCompletionResponse response = chatGptClient.chatCompletions(ChatCompletionRequest.requestBuilder(prompt));
-		return response.getChoices().get(0).message().content();
+		return response.getResponse();
 	}
 }
