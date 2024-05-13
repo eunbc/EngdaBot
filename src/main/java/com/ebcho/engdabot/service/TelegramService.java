@@ -39,6 +39,7 @@ public class TelegramService {
 			log.error("sendMessage error : ", e);
 			sendMessageRepository.save(new SendMessage(startMessage, user, e.getMessage()));
 			return;
+			// throw new CustomException(ErrorCode.SEND_MESSAGE_ERROR);
 		}
 		sendMessageRepository.save(new SendMessage(startMessage, user, null));
 	}
