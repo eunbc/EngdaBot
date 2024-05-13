@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,6 +36,7 @@ class WebhookControllerTest {
 	}
 
 	@Test
+	@DisplayName("메시지가 있을 때 메시지 서비스를 호출합니다")
 	void whenUpdateWithMessage_thenCallsMessageService() throws Exception {
 		// Arrange
 		String updateJson = """
@@ -50,6 +52,7 @@ class WebhookControllerTest {
 	}
 
 	@Test
+	@DisplayName("메시지가 없을 경우 예외가 발생합니다")
 	void whenUpdateWithoutMessage_thenThrowsException() throws Exception {
 		// Arrange
 		String updateJson = "{}";
