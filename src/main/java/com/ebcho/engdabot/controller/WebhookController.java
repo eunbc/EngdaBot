@@ -25,7 +25,7 @@ public class WebhookController {
 	public void getUpdate(@RequestBody Update update) {
 		log.info("getUpdate : {}", update);
 		if (update.hasMessage()) {
-			messageService.readMessageAndCorrectText(MessageRequest.from(update));
+			messageService.handleMessage(MessageRequest.from(update));
 		} else {
 			throw new CustomException(ErrorCode.SERVICE_UNAVAILABLE);
 		}

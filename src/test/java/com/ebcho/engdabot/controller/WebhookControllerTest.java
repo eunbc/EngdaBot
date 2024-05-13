@@ -48,7 +48,7 @@ class WebhookControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(updateJson))
 			.andExpect(status().isOk())
-			.andExpect(result -> verify(messageService).readMessageAndCorrectText(any(MessageRequest.class)));
+			.andExpect(result -> verify(messageService).handleMessage(any(MessageRequest.class)));
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class WebhookControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(updateJson))
 			.andExpect(status().isServiceUnavailable())
-			.andExpect(result -> verify(messageService, times(0)).readMessageAndCorrectText(any(MessageRequest.class)));
+			.andExpect(result -> verify(messageService, times(0)).handleMessage(any(MessageRequest.class)));
 	}
 
 }

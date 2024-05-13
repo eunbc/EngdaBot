@@ -23,36 +23,24 @@ public class MessageService {
 	private final TelegramService telegramService;
 	private final TelegramUserService telegramUserService;
 
-	public void readMessageAndCorrectText(MessageRequest messageRequest) {
+	public void handleMessage(MessageRequest messageRequest) {
 		TelegramUser user = telegramUserService.getTelegramUser(messageRequest);
 		telegramService.saveReceiveMessage(user, messageRequest.message());
 
 		String messageText = messageRequest.message();
 		switch (messageText) {
 			case START_COMMAND:
-				handleStartCommand(user);
+				telegramService.sendResponse(user, MessageConstants.START_MESSAGE);
 				break;
 			case TURN_OFF_ALARM_COMMAND:
-				handleTurnOffAlarmCommand(user);
+				user.turnOffAlarm();
+				telegramService.sendResponse(user, MessageConstants.TURN_OFF_MESSAGE);
 				break;
 			default:
-				handleDefault(user, messageText);
+				String correctedMessage = chatGptService.correctEnglishText(messageText);
+				telegramService.sendResponse(user, correctedMessage);
 				break;
 		}
-	}
-
-	private void handleDefault(TelegramUser user, String messageText) {
-		String correctedMessage = chatGptService.correctEnglishText(messageText);
-		telegramService.sendResponse(user, correctedMessage);
-	}
-
-	private void handleTurnOffAlarmCommand(TelegramUser user) {
-		user.turnOffAlarm();
-		telegramService.sendResponse(user, MessageConstants.TURN_OFF_MESSAGE);
-	}
-
-	private void handleStartCommand(TelegramUser user) {
-		telegramService.sendResponse(user, MessageConstants.START_MESSAGE);
 	}
 
 	@Scheduled(cron = "0 0 23 * * *")
