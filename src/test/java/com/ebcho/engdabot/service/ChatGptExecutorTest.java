@@ -14,13 +14,13 @@ import com.ebcho.engdabot.chatgpt.ChatCompletionRequest;
 import com.ebcho.engdabot.chatgpt.ChatCompletionResponse;
 import com.ebcho.engdabot.chatgpt.ChatGptClient;
 
-class ChatGptServiceTest {
+class ChatGptExecutorTest {
 
 	@Mock
 	private ChatGptClient chatGptClient;
 
 	@InjectMocks
-	private ChatGptService chatGptService;
+	private ChatGptExecutor chatGptExecutor;
 
 	@BeforeEach
 	public void setUp() {
@@ -39,7 +39,7 @@ class ChatGptServiceTest {
 		when(response.getResponse()).thenReturn(correctedText);
 
 		// Act
-		String result = chatGptService.correctEnglishText(originalText);
+		String result = chatGptExecutor.correct(originalText);
 
 		// Assert
 		assertEquals(correctedText, result, "The corrected text should match the expected text.");

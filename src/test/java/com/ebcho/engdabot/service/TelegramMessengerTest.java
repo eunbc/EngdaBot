@@ -18,7 +18,7 @@ import com.ebcho.engdabot.repository.SendMessageRepository;
 import com.ebcho.engdabot.telegram.SendMessageRequest;
 import com.ebcho.engdabot.telegram.TelegramClient;
 
-class TelegramServiceTest {
+class TelegramMessengerTest {
 
 	@Mock
 	private TelegramClient telegramClient;
@@ -30,7 +30,7 @@ class TelegramServiceTest {
 	private ReceiveMessageRepository receiveMessageRepository;
 
 	@InjectMocks
-	private TelegramService telegramService;
+	private TelegramMessenger telegramMessenger;
 
 	@BeforeEach
 	public void setUp() {
@@ -45,7 +45,7 @@ class TelegramServiceTest {
 		String message = "Hello, World!";
 
 		// When
-		telegramService.sendResponse(user, message);
+		telegramMessenger.send(user, message);
 
 		// Then
 		verify(telegramClient).sendMessage(new SendMessageRequest(user.getId(), message));
@@ -63,7 +63,7 @@ class TelegramServiceTest {
 
 		// When
 		try {
-			telegramService.sendResponse(user, message);
+			telegramMessenger.send(user, message);
 		} catch (Exception ignored) {
 			// Exception handling for test purposes
 		}
@@ -80,7 +80,7 @@ class TelegramServiceTest {
 		String receivedMessage = "Received message";
 
 		// When
-		telegramService.saveReceiveMessage(user, receivedMessage);
+		telegramMessenger.receive(user, receivedMessage);
 
 		// Then
 		verify(receiveMessageRepository).save(any(ReceiveMessage.class));

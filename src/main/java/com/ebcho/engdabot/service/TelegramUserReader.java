@@ -16,11 +16,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class TelegramUserService {
+public class TelegramUserReader {
 
 	private final TelegramUserRepository telegramUserRepository;
 
-	public TelegramUser getTelegramUser(MessageRequest messageRequest) {
+	public TelegramUser read(MessageRequest messageRequest) {
 		Optional<TelegramUser> optionalUser = telegramUserRepository.findById(messageRequest.chatId());
 		return optionalUser.orElseGet(() -> createTelegramUser(messageRequest));
 	}

@@ -19,13 +19,13 @@ import com.ebcho.engdabot.entity.TelegramUser;
 import com.ebcho.engdabot.enums.AlarmType;
 import com.ebcho.engdabot.repository.TelegramUserRepository;
 
-class TelegramUserServiceTest {
+class TelegramUserReaderTest {
 
 	@Mock
 	private TelegramUserRepository telegramUserRepository;
 
 	@InjectMocks
-	private TelegramUserService telegramUserService;
+	private TelegramUserReader telegramUserReader;
 
 	@BeforeEach
 	public void setUp() {
@@ -41,7 +41,7 @@ class TelegramUserServiceTest {
 		when(telegramUserRepository.findById(chatId)).thenReturn(Optional.of(existingUser));
 
 		// Act
-		TelegramUser result = telegramUserService.getTelegramUser(new MessageRequest(chatId, "John", "Hello"));
+		TelegramUser result = telegramUserReader.read(new MessageRequest(chatId, "John", "Hello"));
 
 		// Assert
 		assertEquals(existingUser, result);
@@ -58,7 +58,7 @@ class TelegramUserServiceTest {
 		when(telegramUserRepository.save(any(TelegramUser.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
 		// Act
-		TelegramUser result = telegramUserService.getTelegramUser(new MessageRequest(chatId, firstName, "Hello"));
+		TelegramUser result = telegramUserReader.read(new MessageRequest(chatId, firstName, "Hello"));
 
 		// Assert
 		assertNotNull(result);
@@ -75,7 +75,7 @@ class TelegramUserServiceTest {
 		when(telegramUserRepository.findByAlarmType(AlarmType.ON)).thenReturn(expectedUsers);
 
 		// Act
-		List<TelegramUser> result = telegramUserService.getByAlarmTypeOn();
+		List<TelegramUser> result = telegramUserReader.getByAlarmTypeOn();
 
 		// Assert
 		assertEquals(expectedUsers, result);
