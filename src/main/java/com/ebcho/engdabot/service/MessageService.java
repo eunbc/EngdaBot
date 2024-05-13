@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ebcho.engdabot.dto.MessageRequest;
 import com.ebcho.engdabot.entity.TelegramUser;
 import com.ebcho.engdabot.enums.AlarmType;
+import com.ebcho.engdabot.enums.MessageConstants;
 import com.ebcho.engdabot.repository.TelegramUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,32 +20,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageService {
 
+	private static final String START_COMMAND = "/start";
+	private static final String TURN_OFF_ALARM_COMMAND = "알람끄기";
 	private final ChatGptService chatGptService;
 	private final TelegramService telegramService;
 	private final TelegramUserRepository telegramUserRepository;
 
 	public Boolean readMessageAndCorrectText(MessageRequest messageRequest) {
 		TelegramUser user = getTelegramUser(messageRequest);
-
+		String messageText = messageRequest.message();
 		telegramService.saveReceiveMessage(user, messageRequest.message());
-		if (messageRequest.message().equals("/start")) {
-			telegramService.sendStartMessage(user);
-			return true;
+
+		switch (messageText) {
+			case START_COMMAND:
+				handleStartCommand(user);
+				break;
+			case TURN_OFF_ALARM_COMMAND:
+				handleTurnOffAlarmCommand(user);
+				break;
+			default:
+				handleDefault(user, messageText);
+				break;
 		}
-
-		// chat gpt로 첨삭
-		String correctedMessage = chatGptService.correctEnglishText(messageRequest.message());
-
-		// 첨삭 내용을 텔레그램 메시지로 답장
-		telegramService.sendResponse(user, correctedMessage);
 		return true;
+	}
+
+	private void handleDefault(TelegramUser user, String messageText) {
+		String correctedMessage = chatGptService.correctEnglishText(messageText);
+		telegramService.sendResponse(user, correctedMessage);
+	}
+
+	private void handleTurnOffAlarmCommand(TelegramUser user) {
+		user.turnOffAlarm();
+		telegramService.sendResponse(user, MessageConstants.TURN_OFF_MESSAGE);
+	}
+
+	private void handleStartCommand(TelegramUser user) {
+		telegramService.sendResponse(user, MessageConstants.START_MESSAGE);
 	}
 
 	@Scheduled(cron = "0 0 23 * * *")
 	public void sendDailyNotification() {
 		List<TelegramUser> users = telegramUserRepository.findByAlarmType(AlarmType.ON);
 		for (TelegramUser user : users) {
-			telegramService.sendDailyNotification(user);
+			telegramService.sendResponse(user, MessageConstants.DAILY_NOTIFICATION);
 		}
 	}
 

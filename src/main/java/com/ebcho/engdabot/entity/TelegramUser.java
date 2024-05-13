@@ -39,4 +39,8 @@ public class TelegramUser {
 		this.firstName = firstName;
 		this.createdAt = LocalDateTime.now();
 	}
+
+	public void turnOffAlarm() {
+		this.alarmType = AlarmType.OFF;
+	}
 }
