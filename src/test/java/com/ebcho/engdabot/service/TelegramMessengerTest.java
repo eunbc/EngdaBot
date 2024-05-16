@@ -48,7 +48,7 @@ class TelegramMessengerTest {
 		telegramMessenger.send(user, message);
 
 		// Then
-		verify(telegramClient).sendMessage(new SendMessageRequest(user.getId(), message));
+		verify(telegramClient).sendMessage(new SendMessageRequest(user.getId(), message, "HTML"));
 		verify(sendMessageRepository).save(any(SendMessage.class));
 	}
 
