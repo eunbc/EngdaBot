@@ -61,7 +61,7 @@ class WebhookControllerTest {
 		mockMvc.perform(post("/api/v1/update")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(updateJson))
-			.andExpect(status().isServiceUnavailable())
+			.andExpect(status().isOk())
 			.andExpect(result -> verify(messageService, times(0)).handleMessage(any(MessageRequest.class)));
 	}
 
