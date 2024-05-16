@@ -34,7 +34,7 @@ public class TelegramMessenger {
 
 	private void sendMessage(TelegramUser user, String startMessage) {
 		try {
-			telegramClient.sendMessage(new SendMessageRequest(user.getId(), startMessage));
+			telegramClient.sendMessage(new SendMessageRequest(user.getId(), startMessage, "HTML"));
 		} catch (Exception e) {
 			log.error("sendMessage error : ", e);
 			sendMessageRepository.save(new SendMessage(startMessage, user, e.getMessage()));
