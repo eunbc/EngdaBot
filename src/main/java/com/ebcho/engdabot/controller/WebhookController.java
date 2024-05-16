@@ -23,12 +23,19 @@ public class WebhookController {
 
 	@PostMapping
 	public void getUpdate(@RequestBody Update update) {
+		long startTime = System.currentTimeMillis(); // 시작 시간 측정
+
 		log.info("getUpdate : {}", update);
-		if (update.hasMessage()) {
-			messageService.handleMessage(MessageRequest.from(update));
-		} else {
-			throw new CustomException(ErrorCode.SERVICE_UNAVAILABLE);
+		try {
+			if (update.hasMessage()) {
+				messageService.handleMessage(MessageRequest.from(update));
+			} else {
+				throw new CustomException(ErrorCode.SERVICE_UNAVAILABLE);
+			}
+		} finally {
+			long endTime = System.currentTimeMillis(); // 종료 시간 측정
+			long duration = endTime - startTime; // 실행 시간 계산
+			log.info("Request processed in {} ms", duration);
 		}
 	}
-
 }
