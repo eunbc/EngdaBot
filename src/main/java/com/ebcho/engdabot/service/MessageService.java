@@ -32,13 +32,6 @@ public class MessageService {
 		String messageText = messageRequest.message();
 		switch (messageText) {
 			case START_COMMAND:
-				try {
-					// 2초간 대기
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt(); // 현재 스레드의 인터럽트 상태를 설정
-					log.error("Thread was interrupted", e);
-				}
 				telegramMessenger.send(user, MessageConstants.START_MESSAGE);
 				break;
 			case TURN_OFF_ALARM_COMMAND:
