@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ebcho.engdabot.dto.MessageRequest;
-import com.ebcho.engdabot.exception.CustomException;
-import com.ebcho.engdabot.exception.ErrorCode;
 import com.ebcho.engdabot.service.MessageService;
 import com.ebcho.engdabot.telegram.Update;
 
@@ -30,7 +28,7 @@ public class WebhookController {
 			if (update.hasMessage()) {
 				messageService.handleMessage(MessageRequest.from(update));
 			} else {
-				throw new CustomException(ErrorCode.SERVICE_UNAVAILABLE);
+				log.info("Update does not have text.");
 			}
 		} finally {
 			long endTime = System.currentTimeMillis(); // 종료 시간 측정
