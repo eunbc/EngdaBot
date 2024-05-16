@@ -10,7 +10,7 @@ public final class MessageConstants {
 		4. 알람을 끄고 싶다면 <u><b>알람끄기</b></u>를 입력해주세요 (알람 시간 변경 추후 개선 예정)
 		        
 		자세한 안내 & 문의는
-		<a href="https://rena-developedia.notion.site/EngdaBot-ed047b389f4c43e08705ebe39e2e1360?pvs=4">잉다봇 안내 페이지</a> 을 참고해주세요.
+		<a href="https://engdabot.notion.site/EngdaBot-ed047b389f4c43e08705ebe39e2e1360?pvs=4">잉다봇 안내 페이지</a> 을 참고해주세요.
 		""";
 	public static final String DAILY_NOTIFICATION = "How was your day? Write it in your English diary.";
 	public static final String TURN_OFF_MESSAGE = "Done! Your alarm is turned off.";
