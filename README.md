@@ -23,4 +23,5 @@
 ### 문의 또는 개선 요청사항은 아래 링크로 자유롭게 남겨주세요 :)
 
 [잉다봇 문의 링크](https://forms.gle/KCma1ZZH6hhwqfmr7)
+
 [잉다봇 노션 페이지](https://engdabot.notion.site/EngdaBot-ed047b389f4c43e08705ebe39e2e1360)
