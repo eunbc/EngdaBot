@@ -4,5 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ebcho.engdabot.entity.ReceiveMessage;
 
-public interface ReceiveMessageRepository extends CrudRepository<ReceiveMessage, Long> {
+public interface ReceiveMessageRepository
+	extends CrudRepository<ReceiveMessage, Long>, ReceiveMessageQueryDslRepository {
 }
