@@ -3,17 +3,18 @@ package com.ebcho.engdabot.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ebcho.engdabot.chatgpt.ChatCompletionRequest;
 import com.ebcho.engdabot.chatgpt.ChatCompletionResponse;
 import com.ebcho.engdabot.chatgpt.ChatGptClient;
 
+@ExtendWith(MockitoExtension.class)
 class ChatGptExecutorTest {
 
 	@Mock
@@ -21,11 +22,6 @@ class ChatGptExecutorTest {
 
 	@InjectMocks
 	private ChatGptExecutor chatGptExecutor;
-
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	@DisplayName("chatgpt로 영어 문장을 첨삭합니다")

@@ -3,12 +3,12 @@ package com.ebcho.engdabot.service;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ebcho.engdabot.entity.ReceiveMessage;
 import com.ebcho.engdabot.entity.SendMessage;
@@ -18,6 +18,7 @@ import com.ebcho.engdabot.repository.SendMessageRepository;
 import com.ebcho.engdabot.telegram.SendMessageRequest;
 import com.ebcho.engdabot.telegram.TelegramClient;
 
+@ExtendWith(MockitoExtension.class)
 class TelegramMessengerTest {
 
 	@Mock
@@ -31,11 +32,6 @@ class TelegramMessengerTest {
 
 	@InjectMocks
 	private TelegramMessenger telegramMessenger;
-
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	@DisplayName("메시지 전송 성공 후 보낸 메시지를 저장합니다")

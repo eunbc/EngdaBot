@@ -6,18 +6,19 @@ import static org.mockito.Mockito.*;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ebcho.engdabot.dto.MessageRequest;
 import com.ebcho.engdabot.entity.TelegramUser;
 import com.ebcho.engdabot.enums.AlarmType;
 import com.ebcho.engdabot.enums.MessageConstants;
 
+@ExtendWith(MockitoExtension.class)
 class MessageServiceTest {
 
 	@Mock
@@ -31,11 +32,6 @@ class MessageServiceTest {
 
 	@InjectMocks
 	private MessageService messageService;
-
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	@DisplayName("/start 메시지 입력시 시작 메시지를 답장한다")
