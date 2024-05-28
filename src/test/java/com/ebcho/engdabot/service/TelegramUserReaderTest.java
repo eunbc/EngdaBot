@@ -7,18 +7,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ebcho.engdabot.dto.MessageRequest;
 import com.ebcho.engdabot.entity.TelegramUser;
 import com.ebcho.engdabot.enums.AlarmType;
 import com.ebcho.engdabot.repository.TelegramUserRepository;
 
+@ExtendWith(MockitoExtension.class)
 class TelegramUserReaderTest {
 
 	@Mock
@@ -26,11 +27,6 @@ class TelegramUserReaderTest {
 
 	@InjectMocks
 	private TelegramUserReader telegramUserReader;
-
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	@DisplayName("이미 존재하는 유저를 조회합니다")

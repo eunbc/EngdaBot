@@ -3,11 +3,11 @@ package com.ebcho.engdabot.controller;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,6 +19,7 @@ import com.ebcho.engdabot.dto.MessageRequest;
 import com.ebcho.engdabot.service.MessageService;
 
 @WebMvcTest(WebhookController.class)
+@ExtendWith(MockitoExtension.class)
 class WebhookControllerTest {
 
 	@Autowired
@@ -29,11 +30,6 @@ class WebhookControllerTest {
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
-
-	@BeforeEach
-	void setUp() {
-		mockMvc = webAppContextSetup(webApplicationContext).build();
-	}
 
 	@Test
 	@DisplayName("메시지가 있을 때 메시지 서비스를 호출합니다")
