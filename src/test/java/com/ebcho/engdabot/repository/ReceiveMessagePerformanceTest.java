@@ -45,23 +45,26 @@ class ReceiveMessagePerformanceTest {
 
 		List<ReceiveMessage> messages = new ArrayList<>();
 		for (int i = 0; i < 100000; i++) {
-			messages.add(new ReceiveMessage("Test msg " + (i + 1), telegramUser1));
+			messages.add(new ReceiveMessage("Test number " + (i + 1), telegramUser1));
 		}
 		repository.saveAll(messages);
 	}
 
+	/**
+	 * Like 쿼리일 때만 수행 가능 (fulltext index 테스트 불가)
+	 */
 	@Test
-	@DisplayName("십만건의 데이터에서 검색 조회시 성능 체크 : LIKE 쿼리")
+	@DisplayName("십만건의 데이터에서 검색 조회시 성능 체크")
 	void testFindReceivedMessageByKeywordWithPage() {
 		// given
 		int page = 1;
 		int size = 10;
-		String query = "msg";
+		String query = "Test";
 
 		Instant start = Instant.now(); // 시작 시간 기록
 
 		// when
-		Page<ReceiveMessage> result = repository.findReceivedMessageByKeywordWithPage(page, size, query);
+		Page<ReceiveMessage> result = repository.findReceivedMessageByKeywordLikeWithPage(page, size, query);
 
 		Instant end = Instant.now(); // 종료 시간 기록
 		long elapsedTime = Duration.between(start, end).toMillis(); // 실행 시간 계산

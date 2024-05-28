@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `receive_message`
     `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `content`     TEXT   NOT NULL,
     `sender_id`   BIGINT NOT NULL,
-    `received_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    `received_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FULLTEXT title (content)
 );
 
 CREATE TABLE IF NOT EXISTS `send_message`
