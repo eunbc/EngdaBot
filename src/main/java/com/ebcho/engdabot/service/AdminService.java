@@ -24,4 +24,11 @@ public class AdminService {
 		return PageResponse.of(questions, ReceiveMessageResponse::from);
 	}
 
+	@Transactional(readOnly = true)
+	public PageResponse<ReceiveMessageResponse> getReceiveMessagesLike(int page, int size, String query) {
+		Page<ReceiveMessage> questions = receiveMessageRepository.findReceivedMessageByKeywordLikeWithPage(page, size,
+			query);
+		return PageResponse.of(questions, ReceiveMessageResponse::from);
+	}
+
 }

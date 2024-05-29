@@ -30,4 +30,14 @@ public class AdminController {
 		PageResponse<ReceiveMessageResponse> response = adminService.getReceiveMessages(page, size, query);
 		return ResponseEntity.ok(ApiResponse.ok(response));
 	}
+
+	@GetMapping("/like")
+	public ResponseEntity<ApiResponse<PageResponse<ReceiveMessageResponse>>> getQuestionsLike(
+		@RequestParam(value = "page", defaultValue = "1") int page,
+		@RequestParam(value = "size", defaultValue = "10") int size,
+		@RequestParam(value = "query", required = false) String query
+	) {
+		PageResponse<ReceiveMessageResponse> response = adminService.getReceiveMessagesLike(page, size, query);
+		return ResponseEntity.ok(ApiResponse.ok(response));
+	}
 }
